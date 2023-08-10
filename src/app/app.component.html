@@ -1,0 +1,686 @@
+<nav class="navbar sticky-top navbar-light bg-light">
+
+  <div class="col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center">
+  
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10 justify-content-center align-items-center p-2 m-0">
+
+    <button type="button" (click)="prob1()" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+      Problem 1
+    </button>
+
+    <button type="button" (click)="prob2()" class="btn btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+      Problem 2
+    </button>
+
+    <button type="button" (click)="prob3()" class="btn btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+      Problem 3
+    </button>
+
+    <button type="button" (click)="prob4()" class="btn btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop6">
+      Problem 4
+    </button>
+
+    <button type="button" (click)="prob5()" class="btn btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop7">
+      Problem 5
+    </button>
+
+    <button *ngIf="showlogin" type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Login
+    </button>
+
+    <button *ngIf="showhome" type="button" (click)="Logout()" class="btn btn-warning float-end">
+      Logout
+    </button>
+
+  </div>
+
+  <div class="col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center">
+  
+  </div>
+  
+</nav>
+
+<div class="row gx-0 py-3">
+
+  <div class="col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center">
+  
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10 justify-content-center align-items-center p-2 m-0">
+
+      <div *ngIf="showlogin">
+
+          <div *ngIf="crederror" class="d-flex float-end text-danger mb-3">
+            Invalid Credentials
+          </div>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+                  <input type="text" class="form-control" #username placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+                  <input type="password" class="form-control" #password placeholder="Password" aria-label="Password">
+                </div>
+      
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+                <button type="button" (click)="LogIn(username.value, password.value)" data-bs-dismiss="modal" class="btn btn-primary">Login</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+        <div *ngIf="showhome" class="row gy-2">
+
+          <div class="col-12">
+
+          </div>
+
+          <div class="col-12">
+
+            <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Add Employee
+            </button>
+
+          </div>
+
+          <div class="col-12">
+              <table class="table table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Birthdate</th>
+                      <th scope="col">Age</th>
+                      <th scope="col">Gender</th>
+                      <th scope="col">Civil Status</th>
+                      <th scope="col">Contact No.</th>
+                      <th scope="col">Salary</th>
+                      <th scope="col">Active?</th>
+                      <th colspan="2" scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of data">
+                      <th scope="row">{{ item.recid }} </th>
+                      <td>{{ item.fullname }} </td>
+                      <td>{{ item.address }} </td>
+                      <td>{{ item.birthdate | date }} </td>
+                      <td>{{ item.age }} </td>
+                      <td>{{ item.gender }} </td>
+                      <td>{{ item.civilstat }} </td>
+                      <td>{{ item.contactnum }} </td>
+                      <td>{{ item.salary }} </td>
+                      <td>{{ item.isactive | isitactive}} </td>
+                      <td>
+                        <button type="button" (click)="UpdateId(item.recid)" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                          Update
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" (click)="DeleteId(item.recid)" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop8">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+
+        </div>
+
+  </div>
+
+  <div
+      class="col-lg-1 col-xl-1 col-xxl-1 d-flex justify-content-center align-items-center"
+  >
+      
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable overflow-visible">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Employee</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div *ngIf="showerror1" class="d-flex float-end text-warning mb-3">
+            Full Name should not be blank
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+            <input type="text" (keyup)="log1($event)" class="form-control" placeholder="Full Name" aria-label="Fullname" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+            <textarea class="form-control" #inputField placeholder="Address" aria-label="Address"></textarea>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="bi bi-calendar-event-fill"></i></span>
+          <input class="form-control" [(ngModel)]="selectedDate2" #inputField2 placeholder="Birthdate" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                  Open
+              </button>
+          </div>
+        </div>
+
+        <div *ngIf="showerror2" class="d-flex float-end text-warning mb-3">
+          Age should be numeric
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-heart-fill"></i></span>
+            <input type="text" (keyup)="log2($event)" class="form-control" placeholder="Age" aria-label="Age" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="btn-group d-flex mb-3" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-secondary" (click)="onOptionSelected(1)" for="btnradio1">Male</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-secondary" (click)="onOptionSelected(2)" for="btnradio2">Female</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-secondary" (click)="onOptionSelected(3)" for="btnradio3">Other</label>
+        </div>
+
+        <div *ngIf="stat" class="d-flex float-end text-success mb-3">
+          Civil Status set to {{status}}
+        </div>
+
+        <div class="dropdown mb-3">
+
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Civil Status
+          </a>
+        
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" (click)="onOptionSelected2(1)">Single</a></li>
+            <li><a class="dropdown-item" (click)="onOptionSelected2(2)">Married</a></li>
+            <li><a class="dropdown-item" (click)="onOptionSelected2(3)">Seperated</a></li>
+            <li><a class="dropdown-item" (click)="onOptionSelected2(4)">Widowed</a></li>
+          </ul>
+          
+        </div>
+
+        <div *ngIf="showerror3" class="d-flex float-end text-warning mb-3">
+          Contact Number is not accepting letters
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
+          <input type="text" class="form-control" (keyup)="log3($event)" placeholder="Contact Number" aria-label="Contact Number" aria-describedby="basic-addon1">
+        </div>
+
+        <div *ngIf="showerror4" class="d-flex float-end text-warning mb-3">
+          Salary should be an amount
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-currency-exchange"></i></span>
+          <input type="text" class="form-control" (keyup)="log4($event)" placeholder="Salary" aria-label="Salary" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="form-check form-switch float-end">
+          <input class="form-check-input" type="checkbox" (click)="onActivate()" id="flexSwitchCheckChecked">
+          <label class="form-check-label text-primary" for="flexSwitchCheckDefault">{{activate}}</label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+        <button type="button" *ngIf="showaddbtn" (click)="getInputValue(inputField.value, inputField2.value)" class="btn btn-success">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop8" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Employee</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do you want to delete employee ID {{id}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+        <button type="button" (click)="Delete()" class="btn btn-danger">Delete</button>
+      </div>   
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable overflow-visible">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Employee</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div *ngIf="showerror1" class="d-flex float-end text-warning mb-3">
+            Full Name should not be blank
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+            <input type="text" (keyup)="log1($event)" [value]=fn class="form-control" placeholder="Full Name" aria-label="Fullname" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+            <textarea class="form-control" [value]=ad #inputField3 placeholder="Address" aria-label="Address"></textarea>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="bi bi-calendar-event-fill"></i></span>
+          <input class="form-control" [(ngModel)]="selectedDate" #inputField4 placeholder="Birthdate" ngbDatepicker #dp="ngbDatepicker" [value]=bd>
+          <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                  Open
+              </button>
+          </div>
+        </div>
+
+        <div *ngIf="showerror2" class="d-flex float-end text-warning mb-3">
+          Age should be numeric
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-heart-fill"></i></span>
+            <input type="text" (keyup)="log2($event)" [value]=ag  class="form-control" placeholder="Age" aria-label="Age" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="btn-group d-flex mb-3" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio4" id="btnradio4" autocomplete="off" [checked]="showm">
+            <label class="btn btn-outline-secondary" (click)="onOptionSelected(1)" for="btnradio4">Male</label>
+          
+            <input type="radio" class="btn-check" name="btnradio5" id="btnradio5" autocomplete="off" [checked]="showf">
+            <label class="btn btn-outline-secondary" (click)="onOptionSelected(2)" for="btnradio5">Female</label>
+          
+            <input type="radio" class="btn-check" name="btnradio6" id="btnradio6" autocomplete="off" [checked]="showo">
+            <label class="btn btn-outline-secondary" (click)="onOptionSelected(3)" for="btnradio6">Other</label>
+        </div>
+
+        <div *ngIf="stat" class="d-flex float-end text-success mb-3">
+          Civil Status set to {{status}}
+        </div>
+
+        <div class="dropdown mb-3">
+
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Civil Status
+          </a>
+        
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" (click)="onOptionSelected2(1)">Single</a></li>
+            <li><a class="dropdown-item" (click)="onOptionSelected2(2)">Married</a></li>
+            <li><a class="dropdown-item" (click)="onOptionSelected2(3)">Seperated</a></li>
+            <li><a class="dropdown-item" (click)="onOptionSelected2(4)">Widowed</a></li>
+          </ul>
+          
+        </div>
+
+        <div *ngIf="showerror3" class="d-flex float-end text-warning mb-3">
+          Contact Number is not accepting letters
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
+          <input type="text" class="form-control" (keyup)="log3($event)" [value]=cn  placeholder="Contact Number" aria-label="Contact Number" aria-describedby="basic-addon1">
+        </div>
+
+        <div *ngIf="showerror4" class="d-flex float-end text-warning mb-3">
+          Salary should be an amount
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-currency-exchange"></i></span>
+          <input type="text" class="form-control" (keyup)="log4($event)" [value]=sl placeholder="Salary" aria-label="Salary" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="form-check form-switch float-end">
+          <input class="form-check-input" type="checkbox" (click)="onActivate()" id="flexSwitchCheckDefault" [checked]="check">
+          <label class="form-check-label text-primary" for="flexSwitchCheckDefault">{{ activate }}</label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+        <button type="button" *ngIf="showaddbtn" (click)="updateInputValue(inputField3.value, inputField4.value)" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Problem 1</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table caption-top table-bordered border-dark">
+          <caption class="text-dark fs-5">CUSTOMER 1</caption>
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">DATE</th>
+              <th scope="col">DOC. NO.</th>
+              <th scope="col">AMOUNT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob1c1data">
+              <td>{{ item.trndte | trndte }}</td>
+              <td>{{ item.docnum | docnum }}</td>
+              <td>{{ item.trntot }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="2" scope="row">SUB-TOTAL</th>
+              <th scope="row">{{ sum1 }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table caption-top table-bordered border-dark">
+          <caption class="text-dark fs-5">CUSTOMER 2</caption>
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">DATE</th>
+              <th scope="col">DOC. NO.</th>
+              <th scope="col">AMOUNT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob1c2data">
+              <td>{{ item.trndte | trndte }}</td>
+              <td>{{ item.docnum | docnum }}</td>
+              <td>{{ item.trntot }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="2" scope="row">SUB-TOTAL</th>
+              <th scope="row">{{ sum2 }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table caption-top table-bordered border-dark">
+          <caption class="text-dark fs-5">CUSTOMER 3</caption>
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">DATE</th>
+              <th scope="col">DOC. NO.</th>
+              <th scope="col">AMOUNT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob1c3data">
+              <td>{{ item.trndte | trndte }}</td>
+              <td>{{ item.docnum | docnum }}</td>
+              <td>{{ item.trntot }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="2" scope="row">SUB-TOTAL</th>
+              <th scope="row">{{ sum3 }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table">
+          <tfoot>
+            <tr class="table-secondary">
+              <th scope="row">GRAND TOTAL</th>
+              <td></td>
+              <th scope="row">{{ gt }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Problem 2</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table caption-top table-bordered border-dark">
+          <caption class="text-dark fs-5">CALOOCAN</caption>
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">CUSTOMER</th>
+              <th scope="col">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob2t1data">
+              <td>{{ item.cuscde }}</td>
+              <td>{{ item.total }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">SUB-TOTAL</th>
+              <th scope="row">{{ sum1 }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table caption-top table-bordered border-dark">
+          <caption class="text-dark fs-5">MALABON</caption>
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">CUSTOMER</th>
+              <th scope="col">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob2t2data">
+              <td>{{ item.cuscde }}</td>
+              <td>{{ item.total }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">SUB-TOTAL</th>
+              <th scope="row">{{ sum2 }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table caption-top table-bordered border-dark">
+          <caption class="text-dark fs-5">NAVOTAS</caption>
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">CUSTOMER</th>
+              <th scope="col">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob2t3data">
+              <td>{{ item.cuscde }}</td>
+              <td>{{ item.total }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">SUB-TOTAL</th>
+              <th scope="row">{{ sum3 }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table">
+          <tfoot>
+            <tr class="table-secondary">
+              <th scope="row">GRAND TOTAL</th>
+              <th scope="row">{{ gt }}</th>
+            </tr>
+          </tfoot>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Problem 3</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-bordered border-dark">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">RECID</th>
+              <th scope="col">DOCNUM</th>
+              <th scope="col">TRNDTE</th>
+              <th scope="col">CUSCDE</th>
+              <th scope="col">CUSDSC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob3data">
+              <td>{{ item.recid | docnum }}</td>
+              <td>{{ item.docnum }}</td>
+              <td>{{ item.trndte | trndte }}</td>
+              <td>{{ item.cuscde }}</td>
+              <td>{{ item.cusdsc }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<div class="modal fade" id="staticBackdrop6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Problem 4</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-bordered border-dark">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">RECID</th>
+              <th scope="col">TRNDTE</th>
+              <th scope="col">CREMON</th>
+              <th scope="col">CREYER</th>
+              <th scope="col">DATETYP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob4data">
+              <td>{{ item.recid }}</td>
+              <td>{{ item.trndte | date2 }}</td>
+              <td>{{ item.cremon }}</td>
+              <td>{{ item.creyer }}</td>
+              <td>{{ item.datetyp }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Problem 5</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="reload()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-bordered border-dark">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">RECID</th>
+              <th scope="col">FIELD1</th>
+              <th scope="col">FIELD2</th>
+              <th scope="col">FIELD3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of prob5data3">
+              <td >{{ item.recid }}</td>
+              <td >{{ item.field1 }}</td>
+              <td >{{ item.field2 }}</td>
+              <td >{{ item.field3 }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
